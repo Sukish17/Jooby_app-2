@@ -1,26 +1,148 @@
-import {Link} from 'react-router-dom'
+import { Component } from 'react'
 
 import Header from '../Header'
 
+import {v4} from 'uuid'
+
+import Comment from '../Comment'
+
 import './index.css'
 
-const Home = () => (
-  <>
-    <Header />
-    <div className="home-container">
-      <div className="home-content">
-        <h1 className="home-heading">Find The Job That Fits Your Life</h1>
-        <p className="home-description">
-          Millions of people are searching for jobs, salary information, company
-          reviews. Find the job that fits your abilities and potential.
-        </p>
-        <Link to="/jobs">
-          <button type="button" className="shop-now-button">
-            Find Jobs
-          </button>
-        </Link>
+const initialContainerBackgroundClassNames = [
+  'amber',
+  'blue',
+  'orange',
+  'emerald',
+  'teal',
+  'red',
+  'light-blue',
+]
+
+class Home extends Component {
+  state = {
+    nameInput: '',
+    commentInput: '',
+    commentsList: [],
+  }
+
+  deleteComment = commentId => {
+    const {commentsList} = this.state
+
+    this.setState({
+      commentsList: commentsList.filter(comment => comment.id !== commentId),
+    })
+  }
+
+  toggleIsLiked = id => {
+    this.setState(prevState => ({
+      commentsList: prevState.commentsList.map(eachComment => {
+        if (id === eachComment.id) {
+          return {...eachComment, isLiked: !eachComment.isLiked}
+        }
+        return eachComment
+      }),
+    }))
+  }
+
+  renderCommentsList = () => {
+    const {commentsList} = this.state
+
+    return commentsList.map(eachComment => (
+      <Comment
+        key={eachComment.id}
+        commentDetails={eachComment}
+        toggleIsLiked={this.toggleIsLiked}
+        deleteComment={this.deleteComment}
+      />
+    ))
+  }
+
+  onAddComment = event => {
+    event.preventDefault()
+    const {nameInput, commentInput} = this.state
+    const initialBackgroundColorClassName = `initial-container ${
+      initialContainerBackgroundClassNames[
+        Math.ceil(
+          Math.random() * initialContainerBackgroundClassNames.length - 1,
+        )
+      ]
+    }`
+    const newComment = {
+      id: v4(),
+      name: nameInput,
+      comment: commentInput,
+      date: new Date(),
+      isLiked: false,
+      initialClassName: initialBackgroundColorClassName,
+    }
+
+    this.setState(prevState => ({
+      commentsList: [...prevState.commentsList, newComment],
+      nameInput: '',
+      commentInput: '',
+    }))
+  }
+
+  onChangeCommentInput = event => {
+    this.setState({
+      commentInput: event.target.value,
+    })
+  }
+
+  onChangeNameInput = event => {
+    this.setState({
+      nameInput: event.target.value,
+    })
+  }
+
+  render() {
+    const {nameInput, commentInput, commentsList} = this.state
+
+    return (
+      <>
+      <Header/>
+      <div className="app-container">
+        <div className="comments-container">
+          <h1 className="app-heading">TaskList</h1>
+          <div className="comments-inputs">
+            <form className="form" onSubmit={this.onAddComment}>
+              <p className="form-description">
+                Be Informed
+              </p>
+              <input
+                type="text"
+                className="name-input"
+                placeholder="TaskName"
+                value={nameInput}
+                onChange={this.onChangeNameInput}
+              />
+              <textarea
+                placeholder="TaskDetails"
+                className="comment-input"
+                value={commentInput}
+                onChange={this.onChangeCommentInput}
+                rows="6"
+              />
+              <button type="submit" className="add-button">
+                Add Tasks
+              </button>
+            </form>
+            <img
+              className="image"
+              src="https://static.vecteezy.com/system/resources/previews/013/866/233/non_2x/planning-3d-rendering-isometric-icon-png.png"
+              alt="comments"
+            />
+          </div>
+          <hr className="line" />
+          <p className="heading">
+            <span className="comments-count">{commentsList.length}</span>
+            Tasks
+          </p>
+          <ul className="comments-list">{this.renderCommentsList()}</ul>
+        </div>
       </div>
-    </div>
-  </>
-)
+    </>)
+  }
+}
+
 export default Home

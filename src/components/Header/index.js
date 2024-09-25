@@ -2,8 +2,10 @@ import {Link, withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import {FiLogOut} from 'react-icons/fi'
 import {AiFillHome} from 'react-icons/ai'
-import {BsFillBriefcaseFill} from 'react-icons/bs'
+//import {BsFillBriefcaseFill} from 'react-icons/bs'
 import './index.css'
+import Image from '../Image/im1.jpg'
+import { CgProfile } from "react-icons/cg";
 
 const Header = props => {
   const onClickLogout = () => {
@@ -18,7 +20,7 @@ const Header = props => {
           <div className="nav-bar-mobile-container">
             <Link to="/">
               <img
-                src="https://assets.ccbp.in/frontend/react-js/logo-img.png "
+                src={Image}
                 className="website-logo"
                 alt="website logo"
               />
@@ -30,8 +32,8 @@ const Header = props => {
                 </Link>
               </li>
               <li>
-                <Link to="/jobs">
-                  <BsFillBriefcaseFill className="nav-item-mobile-link" />
+                <Link to="/user">
+                  <CgProfile className="nav-item-mobile-link" />
                 </Link>
               </li>
               <li>
@@ -51,7 +53,7 @@ const Header = props => {
             <Link to="/">
               <img
                 className="website-logo"
-                src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
+                src={Image}
                 alt="website logo"
               />
             </Link>
@@ -63,8 +65,8 @@ const Header = props => {
               </li>
 
               <li className="nav-menu-item">
-                <Link to="/jobs" className="nav-link">
-                  Jobs
+                <Link to="/user" className="nav-link">
+                  Profile
                 </Link>
               </li>
             </ul>

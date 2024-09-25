@@ -116,7 +116,7 @@ class LoginForm extends Component {
         <div className="login-form-container">
           <form className="form-container" onSubmit={this.submitForm}>
             <img
-              src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
+              src="https://static.vecteezy.com/system/resources/previews/006/362/783/non_2x/task-word-on-isolated-button-free-photo.jpg"
               className="website-logo"
               alt="website logo"
             />
@@ -125,6 +125,7 @@ class LoginForm extends Component {
             <button className="login-button" type="submit">
               Login
             </button>
+            <marquee className='m1'>Username: <span className='m2'>rahul</span> | Password: <span className='m2'>rahul@2021</span></marquee>
             {showSubmitError && <p className="error-message">*{errorMsg}</p>}
           </form>
         </div>

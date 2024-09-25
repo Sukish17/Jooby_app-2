@@ -2,8 +2,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #121212;
-  /* height: 20vh; */
+  background-color: black;
+   height: 13vh; 
 }
 .nav-content {
   display: flex;
@@ -78,6 +78,7 @@
 @media screen and (min-width: 768px) {
   .website-logo {
     width: 125px;
+    height: 70px;
   }
 }
 
@@ -128,7 +129,7 @@
   font-weight: 600;
   font-size: 14px;
   color: #ffffff;
-  background-color: #4f46e5;
+  background-color: #c35c08;
   border: none;
   border-radius: 4px;
   cursor: pointer;
